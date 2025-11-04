@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Data Manager - Secure Database Interface</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <header class="header">
+            <div class="header-content">
+                <h1>
+                    <svg class="logo-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                        <path d="M12 2L2 7v10c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V7l-10-5z"/>
+                    </svg>
+                    Data Manager
+                </h1>
+                <div class="stats">
+                    <span class="stat-item">Total Entries: <strong id="totalEntries">0</strong></span>
+                </div>
+            </div>
+        </header>
+
+        <!-- API Key Section -->
+        <section class="api-key-section">
+            <div class="input-group">
+                <label for="apiKey">API Key</label>
+                <input type="password" id="apiKey" placeholder="Enter your API key">
+                <button onclick="saveApiKey()" class="btn btn-primary">Save Key</button>
+            </div>
+        </section>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Add/Edit Form -->
+            <section class="form-section">
+                <h2 id="formTitle">Add New Entry</h2>
+                <form id="dataForm" onsubmit="handleSubmit(event)">
+                    <input type="hidden" id="editId">
+                    
+                    <div class="form-group">
+                        <label for="name">Name *</label>
+                        <input type="text" id="name" required placeholder="Entry name">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="value">Value</label>
+                        <textarea id="value" rows="3" placeholder="Entry value"></textarea>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="metadata">Metadata (JSON)</label>
+                        <textarea id="metadata" rows="3" placeholder='{"key": "value"}'></textarea>
+                    </div>
+                    
+                    <div class="form-actions">
+                        <button type="submit" class="btn btn-primary">
+                            <span id="submitBtnText">Add Entry</span>
+                        </button>
+                        <button type="button" onclick="resetForm()" class="btn btn-secondary">Cancel</button>
+                    </div>
+                </form>
+            </section>
+
+            <!-- Search Section -->
+            <section class="search-section">
+                <div class="search-bar">
+                    <input type="text" id="searchInput" placeholder="Search entries..." onkeyup="handleSearch(event)">
+                    <button onclick="loadData()" class="btn btn-secondary">Refresh</button>
+                </div>
+            </section>
+
+            <!-- Data Table -->
+            <section class="data-section">
+                <h2>Data Entries</h2>
+                <div class="table-container">
+                    <table id="dataTable">
+                        <thead>
+                            <tr>
+                                <th>Name</th>
+                                <th>Value</th>
+                                <th>Metadata</th>
+                                <th>Created</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="dataTableBody">
+                            <tr>
+                                <td colspan="5" class="no-data">No data available. Add your first entry!</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+        </main>
+
+        <!-- Toast Notification -->
+        <div id="toast" class="toast"></div>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>
+
+ 
